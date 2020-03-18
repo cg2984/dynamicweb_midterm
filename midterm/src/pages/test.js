@@ -1,9 +1,9 @@
 import React from 'react';
 
-function App() {
+function Test() {
   return (
     <div>
-      test
+      <p> test</p>
     </div>
   );
 }
