@@ -1,1 +1,13 @@
+.App{
+	margin:0 auto;
+	max-width:1080px;
+	background-color:red;
+	display:flex;
+	flex-direction:column;
+}
 
+.map{
+	margin:20px auto;
+	width:300px;
+	height:200px;
+}

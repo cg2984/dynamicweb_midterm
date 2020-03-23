@@ -1,11 +1,14 @@
 import React from 'react';
 import './App.css';
+import Maps from './pages/maps.js';
 import Home from './pages/home.js';
-import Test from './pages/test.js';
 
 function App() {
   return (
     <div className="App">
+      <Home/>
+      <Home/>
+      <Home/>
       <Home/>
     </div>
   );
