@@ -3,18 +3,19 @@ import React, {useEffect,useState} from 'react';
 import axios from 'axios';
 
 //---OTHER VARIABLES
-let lat = 74.0060
-let lon = 40.7128
+let lat = 38.5723
+let lon = -77.3452
+
 
 //---MAP VARIABLES
-let endpoint = `styles/v1/mapbox/light-v10/static/${lon},${lat},5/300x200`;
-const token = "?access_token=pk.eyJ1IjoiY2cyOTg0IiwiYSI6ImNrN3o1N2FyaDAyYXMzZHBhbzZmank4cHYifQ.37Jvq7DeUfOCzyd92K33hw";
+let endpoint = `/v4/mapbox.mapbox-streets-v8/tilequery/${lon},${lat}.json?radius=25&limit=1&dedupe;
+const token = "?access_token=pk.eyJ1IjoiY2cyOTg0IiwiYSI6ImNrODRpbnNlbjAwOWczZm8ybXM5azBuZnYifQ.0cD8Ldn1qLXkLW5331lmCg";
 const baseUrl = "https://api.mapbox.com/"
 let mapUrl = baseUrl+endpoint+token
 
 //---SOLAR VARIABLES
 const key = "UcUGqUyJDvEldhwGumvpyxxmNaIRgGRHjJqa8Tde";
-let endpoint_solar = `api/solar/solar_resource/v1.json?api_key=${key}&lat=${lat}&lon=${lon}`
+let endpoint_solar = `api/solar/solar_resource/v1.json?api_key=${key}&lat=${lat}&lon=${lon}`;
 
 
 
