@@ -17,8 +17,7 @@ let mapUrl = baseUrl+endpoint+token
 
 //---SOLAR VARIABLES
 const key = "UcUGqUyJDvEldhwGumvpyxxmNaIRgGRHjJqa8Tde";
-let endpoint_solar = `api/solar/solar_resource/v1.json?api_key=${key}&lat=${lat}&lon=${lon}`;
-
+let endpoint_solar = `api/cleap/v1/state_co2_emissions?state_abbr=ny&type=industrial&api_key=${key}`
 
 
 
