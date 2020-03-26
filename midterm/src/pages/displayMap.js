@@ -20,16 +20,14 @@ const key = "UcUGqUyJDvEldhwGumvpyxxmNaIRgGRHjJqa8Tde";
 //let endpoint_GHG = `api/solar/solar_resource/v1.json?api_key=${key}&lat=${lat}&lon=${lon}`;
 let endpoint_GHG = `api/cleap/v1/state_co2_emissions?state_abbr=NY&type=industrial&api_key=${key}`
 
-
-
 	
-function Home() {
+function DisplayMap() {
 	const[mapData,setMapData] = useState({});
 	const[map,setMap] = useState("");
 
 	//getting the solar data 
 	useEffect(() => {
-		axios.get(`https://developer.nrel.gov/${endpoint_solar}`)
+		axios.get(`https://developer.nrel.gov/${endpoint_GHG}`)
 			.then(function (response) {
 			// handle success
 			console.log(response);
@@ -75,5 +73,5 @@ function Home() {
 }
 
 
-export default Home;
+export default DisplayMap;
 	

@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.css';
-import Maps from './pages/maps.js';
-import Home from './pages/home.js';
+import ChoiceMaps from './pages/choiceMap.js';
+import DisplayMap from './pages/displayMap.js';
 
 function App() {
   return (
     <div className="App">
-      <Home/>
+    	<DisplayMap/>
     </div>
   );
 }
