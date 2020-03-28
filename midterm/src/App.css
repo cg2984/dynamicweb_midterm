@@ -1,11 +1,48 @@
 .App{
 	margin:0 auto;
 	max-width:1080px;
-	background-color:red;
 	display:flex;
 	flex-direction:column;
 }
 
 .map{
 	margin:20px auto;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.button a{
+	text-align:center;
+	color:Black;
+	color:#53C1FF;
+	margin:0 20px;
+	text-decoration:none;
+}
+
+.buttonWrapper{
+	display:flex;
+	flex-direction:row;
+	margin:20px;
+	background-color:#F6F6F6;
+	justify-content:space-evenly;
+	align-items:center;
+	width:1000px;
+	height:40px;
+
+}
+
+.header{
+	display:flex;
+	flex-direction:column;
+	margin:0 auto;
+}
+
+.header_text{
+	display:flex;
+	flex-direction:row;
+	margin:0 auto;
+}
+
+.headerLink{
+	margin: auto 20px;
+	color:#53C1FF;
 }

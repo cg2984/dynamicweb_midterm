@@ -7,7 +7,7 @@ let lon = -75.8598;
 let zoom = 5.46;
 
 //---MAP VARIABLES
-let endpoint = `styles/v1/mapbox/light-v10/static/${lon},${lat},${zoom}/512x512`;
+let endpoint = `styles/v1/mapbox/light-v10/static/${lon},${lat},${zoom}/800x512`;
 const token = "?access_token=pk.eyJ1IjoiY2cyOTg0IiwiYSI6ImNrODRpbnNlbjAwOWczZm8ybXM5azBuZnYifQ.0cD8Ldn1qLXkLW5331lmCg";
 const baseUrl = "https://api.mapbox.com/"
 let mapUrl = baseUrl+endpoint+token
