@@ -12,6 +12,21 @@ let lon = -96.1133;
 let zoom = 3.4;
 let pins = "pin-s-a+9ed4bd(-154.493062,63.588753),pin-s-b+000(-86.902298,32.318231),pin-s-b+000(-91.831833,35.20105),pin-s-b+000(-111.093731,34.048928),pin-s-b+000(-119.417932,36.778261),pin-s-b+000(-105.782067,39.550051),pin-s-b+000(-73.087749,41.603221),pin-s-b+000(-77.033418,38.905985)";
 
+//---COLORS-----------------------
+// #7b77fa
+// #bd77fa
+// #fa77f6
+// #fa77b5
+// #fa7b77
+// #fabd77
+
+// #f07e7e
+// #f0b77e
+// #f0f07e
+// #b7f07e
+// #7ef07e
+// #7ef0b7
+
 //---MAP VARIABLES
 let endpoint = `styles/v1/mapbox/light-v10/static/${pins}/${lon},${lat},${zoom}/1080x512`;
 const token = "?access_token=pk.eyJ1IjoiY2cyOTg0IiwiYSI6ImNrODRpbnNlbjAwOWczZm8ybXM5azBuZnYifQ.0cD8Ldn1qLXkLW5331lmCg";
