@@ -24,7 +24,6 @@ const key = "UcUGqUyJDvEldhwGumvpyxxmNaIRgGRHjJqa8Tde";
 const stateArray = ["AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY","DC"];
 const stateArrayLen = stateArray.length-1
 let i = 0;
-
 	
 function DisplayMap(){
 	// let history = useHistory();
@@ -52,7 +51,6 @@ function DisplayMap(){
 		axios.get(`https://developer.nrel.gov/api/cleap/v1/state_co2_emissions?state_abbr=${stateArray[i]}&type=${type}&api_key=${key}`)
 				.then(function (response) {
 				// handle success
-				console.log("GHG data success axios");
 				setGHGData(response);
 			})
 			.catch(function (error) {
@@ -64,21 +62,22 @@ function DisplayMap(){
 		});
 	}
 	
-	for(i;i < stateArrayLen;i++){
+	for(i=0;i < stateArrayLen;i++){
+		console.log(stateArray[i]);
 		getGHGData();
 		setTimeout(getGHGData(),5000);
 	}
 
 	let ghgDataArray = [];
 
-	//loading ghg data into variables
+	//loading ghg data into variables, it automatically loads for each run of the for loop
 	useEffect(() => {
 		//must have the .data or else it will give you an error because it wont load properly
 		if(GHGData.data){
-			console.log("GHG data in",GHGData);
 			setType(GHGData.status);
 			setYear(GHGData.data.result[0].start);
 			setEmissions(GHGData.data.result[0].data[2000]);
+			console.log(emissions,GHGData);
 		}
 	},[GHGData]);
 	
