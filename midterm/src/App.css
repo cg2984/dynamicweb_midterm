@@ -45,6 +45,7 @@
 .headerLink{
 	margin: auto 20px;
 	color:#53C1FF;
+	text-transform:uppercase;
 }
 
 .data_circle{

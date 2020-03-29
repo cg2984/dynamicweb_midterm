@@ -2,7 +2,7 @@ import React, {useEffect,useState} from 'react';
 
 let display = "flex";
 
-function Header() {
+function Header({type}) {
 	// function CloseMenu(display){
 	// 	console.log("click");
 	// 	if(display=="none"){
@@ -16,8 +16,8 @@ function Header() {
 	return(
 		<div className = "header">
 			<div className = "header_text">
-				<h1 className = "headerLink">INDUSTRIAL</h1>
-				<h1>GHG emissions in</h1>
+				<h1 className = "headerLink">{type}</h1>
+				<h1>GHG EMISSIONS IN</h1>
 				<h1 className = "headerLink">2000</h1>
 			</div>
 			<div style={{display:`${display}`}}className = "buttonWrapper">
