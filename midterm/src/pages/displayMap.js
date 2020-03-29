@@ -20,9 +20,10 @@ let mapUrl = baseUrl+endpoint+token
 const type = "industrial"
 const key = "UcUGqUyJDvEldhwGumvpyxxmNaIRgGRHjJqa8Tde";
 //let endpoint_GHG = `api/solar/solar_resource/v1.json?api_key=${key}&lat=${lat}&lon=${lon}`;
-let endpoint_GHG = `api/cleap/v1/state_co2_emissions?state_abbr=NY&type=${type}&api_key=${key}`
 
-let locationArray = [];
+const stateArray = ["AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY","DC"];
+const stateArrayLen = stateArray.length-1
+let i = 0;
 
 	
 function DisplayMap(){
@@ -45,22 +46,30 @@ function DisplayMap(){
 	// 	}
 	// },[history]);
 
+
 	//getting the solar data 
-	useEffect(() => {
-		axios.get(`https://developer.nrel.gov/${endpoint_GHG}`)
-			.then(function (response) {
-			// handle success
-			console.log("GHG data success axios");
-			setGHGData(response);
-		})
-		.catch(function (error) {
-			// handle error
-			console.log(error);
-		})
-		.then(function () {
-			// always executed
+	function getGHGData(){
+		axios.get(`https://developer.nrel.gov/api/cleap/v1/state_co2_emissions?state_abbr=${stateArray[i]}&type=${type}&api_key=${key}`)
+				.then(function (response) {
+				// handle success
+				console.log("GHG data success axios");
+				setGHGData(response);
+			})
+			.catch(function (error) {
+				// handle error
+				console.log(error);
+			})
+			.then(function () {
+				// always executed
 		});
-	},[]);
+	}
+	
+	for(i;i < stateArrayLen;i++){
+		getGHGData();
+		setTimeout(getGHGData(),5000);
+	}
+
+	let ghgDataArray = [];
 
 	//loading ghg data into variables
 	useEffect(() => {
