@@ -20,7 +20,7 @@ function Header({type}) {
 				<h1>GHG EMISSIONS IN</h1>
 				<h1 className = "headerLink">2000</h1>
 			</div>
-			<div style={{display:`${display}`}}className = "buttonWrapper">
+			<div style={{display:`${display}`}}className = "buttonWrapper_type">
 				<div className = "button">
 					<a href = "/?type=industrial">INDUSTRIAL</a>
 				</div>
@@ -40,6 +40,20 @@ function Header({type}) {
 					<a href = "/?type=total">TOTAL</a>
 				</div>
 				<div className = 'dates'>
+				</div>
+			</div>
+			<div style={{display:`${display}`}}className = "buttonWrapper_year">
+				<div className = "button">
+					<a href = "&year=1980">1980</a>
+				</div>
+				<div className = "button">
+					<a href = "&year=1990">1990</a>
+				</div>
+				<div className = "button">
+					<a href = "&year=2000">2000</a>
+				</div>
+				<div className = "button">
+					<a href = "&year=2014">2014</a>
 				</div>
 			</div>
 		</div>
