@@ -10,25 +10,16 @@ import Header from "../components/header.js"
 let lat = 38.4506;
 let lon = -96.1133;
 let zoom = 3.4;
-
-let pins = "pin-s-a+9ed4bd(-154.493062,63.588753),pin-s-b+000(-86.902298,32.318231),pin-s-b+000(-91.831833,35.20105),pin-s-b+000(-111.093731,34.048928),pin-s-b+000(-119.417932,36.778261),pin-s-b+000(-105.782067,39.550051),pin-s-b+000(-73.087749,41.603221),pin-s-b+000(-77.033418,38.905985)";
-
 //---COLORS-----------------------
-// #7b77fa
-// #bd77fa
-// #fa77f6
-// #fa77b5
-// #fa7b77
-// #fabd77
-
-// #f07e7e
-// #f0b77e
-// #f0f07e
-// #b7f07e
-// #7ef07e
-// #7ef0b7
+//250-201 => #FF431B
+//200-151 => #FF7C1B
+//150-101 => #FFB51B
+//100-51 => #FFEE1B
+//50-0 => #D7FF1B
 
 //---MAP VARIABLES
+let dataColorArray = [];
+let pins = `pin-s-a+${dataColorArray[0]}(-154.493062,63.588753),pin-s-b+${dataColorArray[1]}(-86.902298,32.318231),pin-s-b+${dataColorArray[2]}(-91.831833,35.20105)`;
 let endpoint = `styles/v1/mapbox/light-v10/static/${pins}/${lon},${lat},${zoom}/1080x512`;
 const token = "?access_token=pk.eyJ1IjoiY2cyOTg0IiwiYSI6ImNrODRpbnNlbjAwOWczZm8ybXM5azBuZnYifQ.0cD8Ldn1qLXkLW5331lmCg";
 const baseUrl = "https://api.mapbox.com/"
@@ -36,8 +27,9 @@ let mapUrl = baseUrl+endpoint+token
 
 //---GHG VARIABLES
 const key = "UcUGqUyJDvEldhwGumvpyxxmNaIRgGRHjJqa8Tde";
-let dataColors = [];
+let dataColor = 0;
 let dataArray = [];
+
 //const stateArray = ["AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY","DC"];
 const stateArray = ["NY","CT","NJ"];
 let i = 0;
@@ -108,17 +100,42 @@ function DisplayMap(){
 			setYear(GHGData.data.result[0].start);
 			setEmissions(GHGData.data.result[0].data[2000]);
 			console.log(emissions,GHGData);
-			if(emissions>)
+					if(250 > emissions > 201){
+						dataColor="FF431B"
+					} 
+					if(200 > emissions > 151){
+						dataColor="FF7C1B"
+					}
+					if(150 > emissions > 101){
+						dataColor="FFB51B"
+					} 
+						
+					if(100 > emissions > 51){
+						dataColor="FFEE1B"
+					}
+					if(50 > emissions > 0){
+						dataColor="D7FF1B"
+					}
+					else{
+						dataColor = "FFFFFF";
+					}
 			dataArray.push(GHGData.data.result[0].data[2000]);
+			dataColorArray.push(dataColor);
+			console.log(dataColorArray);
 			console.log(dataArray);
 		}
 	},[GHGData]);
 	
-//-----------------------------------------MAPS
+	//250-201 => #FF431B
+	//200-151 => #FF7C1B
+	//150-101 => #FFB51B
+	//100-51 => #FFEE1B
+	//50-0 => #D7FF1B
+//--MAPS--------------------------------------------------------------------------------------------------------
 
 	//getting the map data
 	useEffect(() => {
-		if(dataArray.len==stateArray.len && dataArray.len > 0){
+		if(dataArray.len==stateArray.len && dataArray.len > 0 && dataColorArray.len > 0){
 			//normally its mapurl
 			axios.get(mapUrl)
 				.then(function (response) {
