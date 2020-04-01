@@ -18,7 +18,8 @@ function DisplayMap(){
 	const[usState,setUsState] = useState("");
 	const[imgData,setImgData] = useState("");
 	const[imgURL,setImgURL] = useState("");
-	const[total,setTotal] = useState("");
+	const[color,setColor] = useState("");
+
 
 	useEffect(() => {
 		let mySearchParams = history.location.search;
@@ -56,9 +57,7 @@ function DisplayMap(){
 		//must have the .data or else it will give you an error because it wont load properly and it will give undefined error
 		if(GHGData.data){
 			setEmissions(GHGData.data.result[0].data[year]);
-			if(type=="total"){
-				setTotal(GHGData.data.result[0].data[year]);
-			}
+			console.log("emissions",emissions);
 		}
 	},[GHGData]);
 
@@ -97,13 +96,38 @@ function DisplayMap(){
 	},[imgData]);
 	let url = imgURL;
 
+	if(emissions != 0){
+		console.log("emissions",emissions);
+		switch(emissions){
+		case:250 > emissions > 200
+			return color = "#FF3131";
+			console.log("color",color);
+		case:200 > emissions > 150
+			return color ="#FF9831";
+			console.log("color",color);
+		case:150 > emissions > 100
+			return color = "#FFFF31";
+			console.log("color",color);
+		case:100 > emissions > 50
+			return color = "#98FF31";
+			console.log("color",color);
+		case:50 > emissions > 0
+			return color = "#31FF98";
+			console.log("color",color);
+		default:
+			return color = "#FF0000";
+			console.log("color",color);
+		}
+	}
+	
+		
 
 	return(
 		<main className = "main">
 			<section className = "images">
 				<iframe src={url} width="720" height="396" frameBorder="0" className="giphy-embed" allowFullScreen></iframe><p><a href={url}>via GIPHY</a></p>	
 			</section>
-			<p className = "description">IN <strong>{year}</strong> THE NY <strong>{type}</strong> SECTOR EMITTED <strong>{emissions}</strong> million metric tons of CO2</p>
+			<p className = "description">IN <strong>{year}</strong> THE NY <strong>{type}</strong> SECTOR EMITTED <strong style={{textShadow:`2px 2px ${color}`}}>{emissions}</strong> million metric tons of CO2</p>
 		</main>
 	);
 }

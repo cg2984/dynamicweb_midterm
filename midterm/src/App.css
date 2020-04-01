@@ -68,10 +68,6 @@
 	margin:10px auto;
 }
 
-.description strong{
-	text-shadow:2px 2px #ff0000;
-}
-
 .year{
 	display:flex;
 	flex-direction:row;
