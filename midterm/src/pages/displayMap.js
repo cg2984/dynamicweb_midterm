@@ -8,11 +8,6 @@ import Header from "../components/header.js"
 //---GHG VARIABLES
  const key = "UcUGqUyJDvEldhwGumvpyxxmNaIRgGRHjJqa8Tde";
 
-// let endpoint = `styles/v1/mapbox/light-v10/static/${lon},${lat},${zoom}/1080x512`;
-// const token = "?access_token=pk.eyJ1IjoiY2cyOTg0IiwiYSI6ImNrODRpbnNlbjAwOWczZm8ybXM5azBuZnYifQ.0cD8Ldn1qLXkLW5331lmCg";
-// const baseUrl = "https://api.mapbox.com/";
-// let mapUrl = baseUrl+endpoint+token;
-	
 function DisplayMap(){
 	let history = useHistory();
 
@@ -44,7 +39,6 @@ function DisplayMap(){
 				// handle success
 					setGHGData(response);
 					console.log(GHGData);
-					console.log("request type",type);
 				})
 			.catch(function (error) {
 				// handle error
@@ -61,7 +55,6 @@ function DisplayMap(){
 		if(GHGData.data){
 			setYear(GHGData.data.result[0].start);
 			setEmissions(GHGData.data.result[0].data[2000]);
-			console.log(emissions,GHGData);
 		}
 	},[GHGData]);
 
@@ -76,10 +69,8 @@ function DisplayMap(){
 		axios.get(`https://api.giphy.com/v1/gifs/search?api_key=g1OOW9lkN0JhxAV7khTNRwAiFSG4OTQt&q=${type}&limit=10&offset=0&rating=G&lang=en`)
 		.then(function (response) {
 			// handle success
-			console.log("giphy");
 			console.log(response);
 			setImgData(response);
-			console.log(imgData);
 		})
 		.catch(function (error) {
 			// handle error
@@ -91,27 +82,27 @@ function DisplayMap(){
 	},[type]);
 
 	useEffect(() => {
+		//random integer generator from MDN docs
+		let number = Math.floor(Math.random()*(9-0+1))+0;;
+		//need teh if statements for it to load properly
 		if(imgData.data){
 			console.log("loaded");
-			if(imgData.data.data[0]){
+			if(imgData.data.data[number]){
 				console.log("loaded 2");
-				console.log(imgData.data.data[0]);
-				console.log(imgData.data.data[0].embed_url);
-				setImgURL(imgData.data.data[0].embed_url);
-				setTest(imgData.data.data[0].embed_url);
+				console.log(imgData.data.data[number]);
+				console.log(imgData.data.data[number].embed_url);
+				setImgURL(imgData.data.data[number].embed_url);
+				setTest(imgData.data.data[number].embed_url);
 			}
 		}
 	},[imgData]);
-	//console.log("test url",test.data[0].embed_url);
-	console.log("mytest",test);
-	let url = test;
+	let url = imgURL;
 
 
 	return(
 		<main className = "main">
 			<section className = "images">
-				<iframe src={url} width="480" height="264" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/jasmyn-total-p-diddy-puff-daddy-xT5LMsI6f133qq5jdm">via GIPHY</a></p>
-				
+				<iframe src={url} width="480" height="264" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href={url}>via GIPHY</a></p>	
 			</section>
 			<p className = "description">IN 2017 THE NY <strong>{type}</strong> SECTOR EMITTED <strong>{emissions}</strong> million metric tons of CO2</p>
 		</main>
