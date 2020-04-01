@@ -20,10 +20,10 @@ const baseUrl = "https://api.mapbox.com/";
 let mapUrl = baseUrl+endpoint+token;
 	
 let mapData;
-let GHG;
+
 function DisplayMap(){
 	let history = useHistory();
-
+	const[GHG,setGHG] = useState({});
 	const[mapData,setMapData] = useState({});
 	const[map,setMap] = useState("");
 	const[emissions,setEmissions] = useState(0)
@@ -43,8 +43,8 @@ function DisplayMap(){
 			.then(function (response) {
 			// handle success
 			console.log(response);
-			let GHG = response
-			console.log("success",GHG);
+			setGHG(response);
+			console.log("success",GHG.data);
 		})
 		.catch(function (error) {
 			// handle error
