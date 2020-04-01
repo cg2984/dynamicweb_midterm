@@ -18,7 +18,6 @@ function DisplayMap(){
 	const[usState,setUsState] = useState("");
 	const[imgData,setImgData] = useState("");
 	const[imgURL,setImgURL] = useState("");
-	const[color,setColor] = useState("");
 
 
 	useEffect(() => {
@@ -95,39 +94,14 @@ function DisplayMap(){
 		}
 	},[imgData]);
 	let url = imgURL;
-
-	if(emissions != 0){
-		console.log("emissions",emissions);
-		switch(emissions){
-		case:250 > emissions > 200
-			return color = "#FF3131";
-			console.log("color",color);
-		case:200 > emissions > 150
-			return color ="#FF9831";
-			console.log("color",color);
-		case:150 > emissions > 100
-			return color = "#FFFF31";
-			console.log("color",color);
-		case:100 > emissions > 50
-			return color = "#98FF31";
-			console.log("color",color);
-		case:50 > emissions > 0
-			return color = "#31FF98";
-			console.log("color",color);
-		default:
-			return color = "#FF0000";
-			console.log("color",color);
-		}
-	}
-	
-		
+	console.log("emissions",emissions);	
 
 	return(
 		<main className = "main">
 			<section className = "images">
 				<iframe src={url} width="720" height="396" frameBorder="0" className="giphy-embed" allowFullScreen></iframe><p><a href={url}>via GIPHY</a></p>	
 			</section>
-			<p className = "description">IN <strong>{year}</strong> THE NY <strong>{type}</strong> SECTOR EMITTED <strong style={{textShadow:`2px 2px ${color}`}}>{emissions}</strong> million metric tons of CO2</p>
+			<p className = "description">IN <strong style = {{backgroundColor:`rgb(${emissions}, 30, 75`}}>{year}</strong> THE NY <strong style = {{backgroundColor:`rgb(${emissions}, 30, 75`}}>{type}</strong> SECTOR EMITTED <strong style = {{backgroundColor:`rgb(${emissions}, 30, 75`}}>{emissions}</strong> million metric tons of CO2</p>
 		</main>
 	);
 }
