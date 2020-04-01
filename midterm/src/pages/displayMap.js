@@ -73,7 +73,7 @@ function DisplayMap(){
 	//loading map data into variables
 	useEffect(() => {
 		console.log("inside giphy useState",type);
-		axios.get(`https://api.giphy.com/v1/gifs/search?api_key=g1OOW9lkN0JhxAV7khTNRwAiFSG4OTQt&q=${type}&limit=1&offset=0&rating=G&lang=en`)
+		axios.get(`https://api.giphy.com/v1/gifs/search?api_key=g1OOW9lkN0JhxAV7khTNRwAiFSG4OTQt&q=${type}&limit=10&offset=0&rating=G&lang=en`)
 		.then(function (response) {
 			// handle success
 			console.log("giphy");
