@@ -18,16 +18,18 @@ function DisplayMap(){
 	const[usState,setUsState] = useState("");
 	const[imgData,setImgData] = useState("");
 	const[imgURL,setImgURL] = useState("");
-	const[test,setTest] = useState("");
-	const[test2,setTest2] = useState("");
 
 
 	useEffect(() => {
 		let mySearchParams = history.location.search;
 		let urlParams = new URLSearchParams(mySearchParams);
 		let type = urlParams.get('type');
+		let year = urlParams.get("year");
 		if(type){
 			setType(type);
+		}
+		if(year){
+			setYear(year);
 		}
 	},[history]);
 
@@ -53,8 +55,7 @@ function DisplayMap(){
 	useEffect(() => {
 		//must have the .data or else it will give you an error because it wont load properly and it will give undefined error
 		if(GHGData.data){
-			setYear(GHGData.data.result[0].start);
-			setEmissions(GHGData.data.result[0].data[2000]);
+			setEmissions(GHGData.data.result[0].data[year]);
 		}
 	},[GHGData]);
 
