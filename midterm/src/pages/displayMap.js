@@ -56,7 +56,6 @@ function DisplayMap(){
 		//must have the .data or else it will give you an error because it wont load properly and it will give undefined error
 		if(GHGData.data){
 			setEmissions(GHGData.data.result[0].data[year]);
-			console.log("emissions",emissions);
 		}
 	},[GHGData]);
 
@@ -101,7 +100,7 @@ function DisplayMap(){
 			<section className = "images">
 				<iframe src={url} width="720" height="396" frameBorder="0" className="giphy-embed" allowFullScreen></iframe><p><a href={url}>via GIPHY</a></p>	
 			</section>
-			<p className = "description">IN <strong style = {{backgroundColor:`rgb(${emissions}, 30, 75`}}>{year}</strong> THE NY <strong style = {{backgroundColor:`rgb(${emissions}, 30, 75`}}>{type}</strong> SECTOR EMITTED <strong style = {{backgroundColor:`rgb(${emissions}, 30, 75`}}>{emissions}</strong> million metric tons of CO2</p>
+			<p className = "description">IN <strong style = {{backgroundColor:`rgb(${emissions}, 30, 75`}}>{year}</strong> THE NY <strong style = {{backgroundColor:`rgb(${emissions}, 30, 75`}}>{type}</strong> SECTOR EMITTED <strong style = {{backgroundColor:`rgb(${emissions}, 30, 80`}}>{emissions}</strong> million metric tons of CO2</p>
 		</main>
 	);
 }
