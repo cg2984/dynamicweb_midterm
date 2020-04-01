@@ -84,15 +84,10 @@ function DisplayMap(){
 	useEffect(() => {
 		//random integer generator from MDN docs
 		let number = Math.floor(Math.random()*(9-0+1))+0;;
-		//need teh if statements for it to load properly
+		//need the nested if statements for it to load properly
 		if(imgData.data){
-			console.log("loaded");
 			if(imgData.data.data[number]){
-				console.log("loaded 2");
-				console.log(imgData.data.data[number]);
-				console.log(imgData.data.data[number].embed_url);
 				setImgURL(imgData.data.data[number].embed_url);
-				setTest(imgData.data.data[number].embed_url);
 			}
 		}
 	},[imgData]);
@@ -102,7 +97,7 @@ function DisplayMap(){
 	return(
 		<main className = "main">
 			<section className = "images">
-				<iframe src={url} width="480" height="264" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href={url}>via GIPHY</a></p>	
+				<iframe src={url} width="720" height="396" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href={url}>via GIPHY</a></p>	
 			</section>
 			<p className = "description">IN 2017 THE NY <strong>{type}</strong> SECTOR EMITTED <strong>{emissions}</strong> million metric tons of CO2</p>
 		</main>

@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Bowlby+One+SC&family=Luckiest+Guy&family=Roboto:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@1,700&display=swap');
 .App{
 	margin:0 auto;
 	max-width:1080px;
@@ -6,10 +7,6 @@
 	flex-direction:column;
 }
 
-.map{
-	margin:20px auto;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
 
 .button a{
 	text-align:center;
@@ -49,19 +46,7 @@
 
 .header a:hover{
 	color:white;
-}
-
-.header_text{
-	display:flex;
-	flex-direction:row;
-	
-	margin:20px;
-}
-
-.headerLink{
-	margin: auto 20px;
-	color:#53C1FF;
-	text-transform:uppercase;
+	text-shadow:2px 2px #000000;
 }
 
 .text{
@@ -74,6 +59,7 @@
 	flex-direction:row;
 	margin: 0 auto;
 	max-width:1080px;
+	justify-items:center;
 }
 
 .description{
@@ -81,7 +67,12 @@
 	text-align:center;
 	margin:20px;
 	text-transform:uppercase;
-	font-family: 'Roboto', sans-serif;
+	font-family: 'Open Sans', sans-serif;
+	margin:20px auto;
+}
+
+.images{
+	margin:20px auto;
 }
 
 .description strong{
