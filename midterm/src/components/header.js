@@ -1,26 +1,15 @@
 import React, {useEffect,useState} from 'react';
-function Header({usState}){
 
+let display = "flex";
 
+function Header(){
 	return(
-		<div className = "header">
-				<div className = "button">
-					<a href = "/?type=NY">NEW YORK</a>
-				</div>
-				<div className = "button">
-					<a href = "/?type=CT">CONNETICUT</a>
-				</div>
-				<div className = "button">
-					<a href = "/?type=NJ">New jersey</a>
-				</div>
-				<div className = "button">
-					<a href = "/?type=PA">Pennsylvania</a>
-				</div>
-				<div className = "button">
-					<a href = "/?type=MA">Massachussets</a>
-				</div>
-		</div>
-	);
+		<nav className = "CityNav">
+				<a href="/?type=total">total</a>
+				<a href="/?type=commercial">commercial</a>
+				<a href="/?type=residential">residential</a>
+		</nav>
+	)
 }
 
 export default Header

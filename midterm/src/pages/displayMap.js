@@ -11,21 +11,8 @@ let lat = 40.730610;
 let lon = -73.935242;
 let zoom = 5;
 
-//---COLORS-----------------------
-//250-201 => #FF431B
-//200-151 => #FF7C1B
-//150-101 => #FFB51B
-//100-51 => #FFEE1B
-//50-0 => #D7FF1B
-
-
 //---GHG VARIABLES
 const key = "UcUGqUyJDvEldhwGumvpyxxmNaIRgGRHjJqa8Tde";
-let dataColor = 0;
-let dataArray = [];
-
-//const stateArray = ["AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY","DC"];
-const stateArray = ["NY","CT","NJ","PA"];
 
 let endpoint = `styles/v1/mapbox/light-v10/static/${lon},${lat},${zoom}/1080x512`;
 const token = "?access_token=pk.eyJ1IjoiY2cyOTg0IiwiYSI6ImNrODRpbnNlbjAwOWczZm8ybXM5azBuZnYifQ.0cD8Ldn1qLXkLW5331lmCg";
@@ -38,42 +25,42 @@ function DisplayMap(){
 	const[mapData,setMapData] = useState({});
 	const[map,setMap] = useState("");
 	const[year,setYear] = useState("");
-	const[type, setType] = useState(null);
+	const[type, setType] = useState("");
 	const[GHGData, setGHGData] = useState({});
-	const[mapTest,setMapTest] = useState("");
 	const[emissions,setEmissions] = useState(0);
-
+	const[usState,setUsState] = useState("");
 
 	useEffect(() => {
-		let mySearchParams = history.location.search;
-		let urlParams = new URLSearchParams(mySearchParams);
-		let type = urlParams.get('type');
-		setType(type);
+			let mySearchParams = history.location.search;
+			let urlParams = new URLSearchParams(mySearchParams);
+			//using method get from search params api 
+			let type = urlParams.get('type');
+			//makes sure that tte city exists
+			if(type){
+				setType(type);
+			}
 	},[history]);
 
-	//getting the GHG data 
-	function getGHGData(){
-		axios.get(`https://developer.nrel.gov/api/cleap/v1/state_co2_emissions?state_abbr=NY&type=${type}&api_key=${key}`)
+		
+
+	//type != null here because when i put it on the axios function it didnt work. this keeps it from loading the default value for type
+	useEffect(() => {
+		console.log("type",type);
+		console.log("state",usState);
+		axios.get(`https://developer.nrel.gov/api/cleap/v1/state_co2_emissions?state_abbr=CT&type=${type}&api_key=${key}`)
 			.then(function (response) {
 				// handle success
 					setGHGData(response);
 					console.log(GHGData);
 					console.log("request type",type);
 				})
-				.catch(function (error) {
-					// handle error
-					console.log(error);
-				})
-				.then(function () {
-					// always executed
-			});
-	}	
-
-	//type != null here because when i put it on the axios function it didnt work. this keeps it from loading the default value for type
-	useEffect(() => {
-		if (type!=null){
-			getGHGData();
-		}
+			.catch(function (error) {
+				// handle error
+				console.log(error);
+			})
+			.then(function () {
+			// always executed
+		});
 	},[]);
 	
 
@@ -87,15 +74,12 @@ function DisplayMap(){
 			setYear(GHGData.data.result[0].start);
 			setEmissions(GHGData.data.result[0].data[2000]);
 			console.log(emissions,GHGData);
-			dataArray.push(emissions);
 		}
 	},[GHGData]);
 
 //--MAPS--------------------------------------------------------------------------------------------------------
 	
 	function getMapData(){
-		//if(pins != null){
-			//normally its mapurl
 			axios.get(mapUrl)
 				.then(function (response) {
 				// handle success
@@ -110,7 +94,6 @@ function DisplayMap(){
 			.then(function () {
 				//always executed
 			});
-		//}	
 	}
 
 	//loading map data into variables
@@ -125,9 +108,8 @@ function DisplayMap(){
 		<main>
 			<Header type={type}/>
 			<img className="map" src={mapUrl} alt = "static map"/>
-			<div className = "data_circle"> 
-				<p>{emissions}</p>
-			</div>
+			<p>{type}</p>
+			<p>{emissions}</p>
 		</main>
 	)
 }
