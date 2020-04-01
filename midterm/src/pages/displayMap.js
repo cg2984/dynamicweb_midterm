@@ -19,7 +19,6 @@ function DisplayMap(){
 	const[imgData,setImgData] = useState("");
 	const[imgURL,setImgURL] = useState("");
 
-
 	useEffect(() => {
 		let mySearchParams = history.location.search;
 		let urlParams = new URLSearchParams(mySearchParams);
@@ -98,9 +97,9 @@ function DisplayMap(){
 	return(
 		<main className = "main">
 			<section className = "images">
-				<iframe src={url} width="720" height="396" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href={url}>via GIPHY</a></p>	
+				<iframe src={url} width="720" height="396" frameBorder="0" className="giphy-embed" allowFullScreen></iframe><p><a href={url}>via GIPHY</a></p>	
 			</section>
-			<p className = "description">IN 2017 THE NY <strong>{type}</strong> SECTOR EMITTED <strong>{emissions}</strong> million metric tons of CO2</p>
+			<p className = "description">IN <strong>{year}</strong> THE NY <strong>{type}</strong> SECTOR EMITTED <strong>{emissions}</strong> million metric tons of CO2</p>
 		</main>
 	);
 }

@@ -8,7 +8,7 @@ import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 function App() {
   return (
     <div className="SiteWrapper">
-      <Header/>
+    <Header/>
       <Router>
       	<Switch>
       		<Route path="/">
