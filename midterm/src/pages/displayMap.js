@@ -25,7 +25,7 @@ function DisplayMap(){
 	const[mapData,setMapData] = useState({});
 	const[map,setMap] = useState("");
 	const[year,setYear] = useState("");
-	const[type, setType] = useState("");
+	const[type, setType] = useState(null);
 	const[GHGData, setGHGData] = useState({});
 	const[emissions,setEmissions] = useState(0);
 	const[usState,setUsState] = useState("");
