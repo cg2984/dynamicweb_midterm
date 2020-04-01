@@ -18,6 +18,7 @@ function DisplayMap(){
 	const[usState,setUsState] = useState("");
 	const[imgData,setImgData] = useState("");
 	const[imgURL,setImgURL] = useState("");
+	const[total,setTotal] = useState("");
 
 	useEffect(() => {
 		let mySearchParams = history.location.search;
@@ -55,6 +56,9 @@ function DisplayMap(){
 		//must have the .data or else it will give you an error because it wont load properly and it will give undefined error
 		if(GHGData.data){
 			setEmissions(GHGData.data.result[0].data[year]);
+			if(type=="total"){
+				setTotal(GHGData.data.result[0].data[year]);
+			}
 		}
 	},[GHGData]);
 

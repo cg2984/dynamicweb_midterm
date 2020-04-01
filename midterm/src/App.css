@@ -45,11 +45,6 @@
 	text-shadow:2px 2px #000000;
 }
 
-.text{
-	display:flex;
-	flex-direction:column;
-}
-
 .main{
 	display:flex;
 	flex-direction:row;
@@ -87,4 +82,5 @@
 
 .year:hover{
 	margin:10px 0;
+	background-color:#ff665e;
 }

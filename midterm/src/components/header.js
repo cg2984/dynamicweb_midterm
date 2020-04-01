@@ -1,9 +1,9 @@
 import React, {useEffect,useState} from 'react';
 
-function Header({total}) {
+function Header() {
 	return(
 		<header className = "header">
-			<nav className = "year" style={{`background-color:blue;`}}>
+			<nav className = "year">
 				<h1 className = "yearNum">1980</h1>
 				<div className = "button">
 					<a href = "/?type=industrial&year=1980">INDUSTRIAL</a>
@@ -24,7 +24,7 @@ function Header({total}) {
 					<a href = "/?type=total&year=1980">TOTAL</a>
 				</div>
 			</nav>
-			<nav className = "year" style={{`background-color:blue;`}}>
+			<nav className = "year">
 				<h1 className = "yearNum">1990</h1>
 				<div className = "button">
 					<a href = "/?type=industrial&year=1990">INDUSTRIAL</a>
@@ -45,7 +45,7 @@ function Header({total}) {
 					<a href = "/?type=total&year=1990">TOTAL</a>
 				</div>
 			</nav>
-			<nav className = "year" style={{`background-color:blue;`}}>
+			<nav className = "year">
 				<h1 className = "yearNum">2000</h1>
 				<div className = "button">
 					<a href = "/?type=industrial&year=2000">INDUSTRIAL</a>
@@ -66,7 +66,7 @@ function Header({total}) {
 					<a href = "/?type=total&year=2000">TOTAL</a>
 				</div>
 			</nav>
-			<nav className = "year" style={{`background-color:blue;`}}>
+			<nav className = "year">
 				<h1 className = "yearNum">2017</h1>
 				<div className = "button">
 					<a href = "/?type=industrial&year=2017">INDUSTRIAL</a>
