@@ -1,15 +1,28 @@
 import React, {useEffect,useState} from 'react';
 
-let display = "flex";
-
-function Header(){
+function Header() {
 	return(
-		<nav className = "CityNav">
-				<a href="/?type=total">total</a>
-				<a href="/?type=commercial">commercial</a>
-				<a href="/?type=residential">residential</a>
-		</nav>
+		<header className = "header">
+			<div className = "button">
+				<a href = "/?type=industrial">INDUSTRIAL</a>
+			</div>
+			<div className = "button">
+				<a href = "/?type=commercial">COMMERCIAL</a>
+			</div>
+			<div className = "button">
+				<a href = "/?type=electric">ELECTRIC</a>
+			</div>
+			<div className = "button">
+				<a href = "/?type=residential">RESIDENTIAL</a>
+			</div>
+			<div className = "button">
+				<a href = "/?type=transportation">TRANSPORTATION</a>
+			</div>
+			<div className = "button">
+				<a href = "/?type=total">TOTAL</a>
+			</div>
+		</header>
 	)
 }
 
-export default Header
+export default Header 

@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Bowlby+One+SC&family=Luckiest+Guy&family=Roboto:wght@500&display=swap');
 .App{
 	margin:0 auto;
 	max-width:1080px;
@@ -33,13 +34,28 @@
 .header{
 	display:flex;
 	flex-direction:row;
-	margin:0 auto;
+	margin:20px;
+	justify-content:center;
+	background-color: red;
+	flex-wrap:wrap;
+}
+
+.header a{
+	color:black;
+	font-size:40px;
+	font-family: 'Bowlby One SC', cursive;
+	max-width:1080px;
+}
+
+.header a:hover{
+	color:white;
 }
 
 .header_text{
 	display:flex;
 	flex-direction:row;
-	margin:0 auto;
+	
+	margin:20px;
 }
 
 .headerLink{
@@ -51,4 +67,23 @@
 .text{
 	display:flex;
 	flex-direction:column;
+}
+
+.main{
+	display:flex;
+	flex-direction:row;
+	margin: 0 auto;
+	max-width:1080px;
+}
+
+.description{
+	font-size:48px;
+	text-align:center;
+	margin:20px;
+	text-transform:uppercase;
+	font-family: 'Roboto', sans-serif;
+}
+
+.description strong{
+	text-shadow:2px 2px #ff0000;
 }
