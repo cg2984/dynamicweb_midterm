@@ -7,9 +7,10 @@ import Header from "../components/header.js"
 //---OTHER VARIABLES
 //southmost longistude: 18.55
 //northmost 71.23
-let lat = 38.4506;
-let lon = -96.1133;
-let zoom = 3.4;
+let lat = 40.730610;
+let lon = -73.935242;
+let zoom = 5;
+
 //---COLORS-----------------------
 //250-201 => #FF431B
 //200-151 => #FF7C1B
@@ -17,13 +18,6 @@ let zoom = 3.4;
 //100-51 => #FFEE1B
 //50-0 => #D7FF1B
 
-//---MAP VARIABLES
-let dataColorArray = [];
-let pins = `pin-s-a+${dataColorArray[0]}(-154.493062,63.588753),pin-s-b+${dataColorArray[1]}(-86.902298,32.318231),pin-s-b+${dataColorArray[2]}(-91.831833,35.20105)`;
-let endpoint = `styles/v1/mapbox/light-v10/static/${pins}/${lon},${lat},${zoom}/1080x512`;
-const token = "?access_token=pk.eyJ1IjoiY2cyOTg0IiwiYSI6ImNrODRpbnNlbjAwOWczZm8ybXM5azBuZnYifQ.0cD8Ldn1qLXkLW5331lmCg";
-const baseUrl = "https://api.mapbox.com/"
-let mapUrl = baseUrl+endpoint+token
 
 //---GHG VARIABLES
 const key = "UcUGqUyJDvEldhwGumvpyxxmNaIRgGRHjJqa8Tde";
@@ -31,10 +25,22 @@ let dataColor = 0;
 let dataArray = [];
 
 //const stateArray = ["AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY","DC"];
-const stateArray = ["NY","CT","NJ"];
+const stateArray = ["NY","CT","NJ","PA"];
 let i = 0;
+let j = 0;
+
+let pin0 = "";
+let pin1 = "";
+let pin2 = "";
+let pin3 = "";
 
 
+let dataColorArray = [];
+let pins = null;
+let endpoint = `styles/v1/mapbox/light-v10/static/${pins}/${lon},${lat},${zoom}/1080x512`;
+const token = "?access_token=pk.eyJ1IjoiY2cyOTg0IiwiYSI6ImNrODRpbnNlbjAwOWczZm8ybXM5azBuZnYifQ.0cD8Ldn1qLXkLW5331lmCg";
+const baseUrl = "https://api.mapbox.com/";
+let mapUrlInitial = baseUrl+endpoint+token;
 	
 function DisplayMap(){
 	let history = useHistory();
@@ -46,9 +52,7 @@ function DisplayMap(){
 	const[GHGData, setGHGData] = useState({});
 	const[mapTest,setMapTest] = useState("");
 	const[emissions,setEmissions] = useState(0);
-	const[emissionsNY,setEmissionsNY] = useState(0);
-	const[emissionsNJ,setEmissionsNJ] = useState(0);
-	const[emissionsCT,setEmissionsCT] = useState(0);
+
 
 	useEffect(() => {
 		let mySearchParams = history.location.search;
@@ -63,8 +67,6 @@ function DisplayMap(){
 		// }
 	},[history]);
 
-	console.log(type);
-
 	//getting the GHG data 
 	function getGHGData(){
 		axios.get(`https://developer.nrel.gov/api/cleap/v1/state_co2_emissions?state_abbr=${stateArray[i]}&type=${type}&api_key=${key}`)
@@ -72,7 +74,7 @@ function DisplayMap(){
 				// handle success
 					setGHGData(response);
 					console.log(GHGData);
-					console.log(type);
+					console.log("request type",type);
 				})
 				.catch(function (error) {
 					// handle error
@@ -83,9 +85,9 @@ function DisplayMap(){
 			});
 	}	
 
-	//type != null here because when i put it on the axiox function it didnt work. this keeps it from loading the default value for type
+	//type != null here because when i put it on the axios function it didnt work. this keeps it from loading the default value for type
 	if (type!=null){
-		for(i;i < 3;i++){
+		for(i;i < 4;i++){
 		getGHGData();
 	 	console.log(i,stateArray[i]);
 		}
@@ -100,44 +102,46 @@ function DisplayMap(){
 			setYear(GHGData.data.result[0].start);
 			setEmissions(GHGData.data.result[0].data[2000]);
 			console.log(emissions,GHGData);
-					if(250 > emissions > 201){
-						dataColor="FF431B"
-					} 
-					if(200 > emissions > 151){
-						dataColor="FF7C1B"
-					}
-					if(150 > emissions > 101){
-						dataColor="FFB51B"
-					} 
-						
-					if(100 > emissions > 51){
-						dataColor="FFEE1B"
-					}
-					if(50 > emissions > 0){
-						dataColor="D7FF1B"
-					}
-					else{
-						dataColor = "FFFFFF";
-					}
-			dataArray.push(GHGData.data.result[0].data[2000]);
-			dataColorArray.push(dataColor);
-			console.log(dataColorArray);
-			console.log(dataArray);
+			dataArray.push(emissions);
+			//console.log("dataColor",dataColor);
+			//dataColorArray.push(dataColor);
+			//console.log("dataArray", dataArray);
 		}
 	},[GHGData]);
-	
-	//250-201 => #FF431B
-	//200-151 => #FF7C1B
-	//150-101 => #FFB51B
-	//100-51 => #FFEE1B
-	//50-0 => #D7FF1B
-//--MAPS--------------------------------------------------------------------------------------------------------
 
-	//getting the map data
-	useEffect(() => {
-		if(dataArray.len==stateArray.len && dataArray.len > 0 && dataColorArray.len > 0){
+//--MAPS--------------------------------------------------------------------------------------------------------
+	function colorSet(){
+		for(j;j < 5;j++){
+			if(250 > dataArray[j] > 201){
+				dataColor="FF431B"
+			} 
+			if(200 > dataArray[j] > 151){
+				dataColor="FF7C1B"
+			}
+			if(150 > dataArray[j] > 101){
+				dataColor="FFB51B"
+			} 					
+			if(100 > dataArray[j] > 51){
+				dataColor="FFEE1B"
+			}
+			if(50 > dataArray[j] > 0){
+				dataColor="D7FF1B"
+			}
+			else{
+				dataColor = "FFFFFF";
+			}
+
+			dataColorArray.push(dataColor);
+			console.log(dataColorArray)
+		}
+		let pins = `pin-s-a+${dataColorArray[0]}(-75.420735,43.145888),pin-s-b+${dataColorArray[1]}(-74.4057,40.0583),pin-s-b+${dataColorArray[2]}(-73.0877,41.6032),pin-s-b+${dataColorArray[3]}(-77.466611,40.873649)`;
+	}	
+
+	
+	function getMapData(){
+		//if(pins != null){
 			//normally its mapurl
-			axios.get(mapUrl)
+			axios.get(mapUrlInitial)
 				.then(function (response) {
 				// handle success
 				console.log("map data success");
@@ -151,6 +155,15 @@ function DisplayMap(){
 			.then(function () {
 				//always executed
 			});
+		//}	
+	}
+
+
+	//getting the map data
+	useEffect(() => {
+	   if(pins != null){
+	   		colorSet();
+			getMapData();
 		}
 	},[]);
 
@@ -165,7 +178,7 @@ function DisplayMap(){
 	return(
 		<main>
 			<Header type={type}/>
-			<img className="map" src={mapUrl} alt = "static map"/>
+			<img className="map" src={mapUralInitial} alt = "static map"/>
 			<div className = "data_circle"> 
 				<p>{emissions}</p>
 			</div>
