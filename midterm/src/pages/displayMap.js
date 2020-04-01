@@ -26,31 +26,31 @@ function DisplayMap(){
 	const[GHG,setGHG] = useState({});
 	const[mapData,setMapData] = useState({});
 	const[map,setMap] = useState("");
-	const[emissions,setEmissions] = useState(0)
-	const[color,setColor] = useState("FFFFFF")
+	const[emissions,setEmissions] = useState(0);
 	const[usState,setUsState] = useState("NY");
+	const[type,setType] = useState("total");
 
-
-	// useEffect(() => {
-	// 	let mySearchParams = history.location.search;
-	// 	let urlParams = new URLSearchParams(mySearchParams);
-	// 	let usState = urlParams.get('usState');
-	// 	setType(usState);
-	// },[history]);
 
 	useEffect(() => {
-		axios.get(`https://developer.nrel.gov/api/cleap/v1/state_co2_emissions?state_abbr=NY&type=total&api_key=${key}`)
+		let mySearchParams = history.location.search;
+		let urlParams = new URLSearchParams(mySearchParams);
+		let type = urlParams.get('type');
+		setType(type);
+	},[history]);
+
+	useEffect(() => {
+		axios.get(`https://developer.nrel.gov/api/cleap/v1/state_co2_emissions?state_abbr=${usState}&type=${type}&api_key=${key}`)
 			.then(function (response) {
 			// handle success
 			console.log(response);
 			setGHG(response);
 			console.log("success",GHG);
 		})
-		.catch(function (error) {
+			.catch(function (error) {
 			// handle error
 			console.log(error);
 		})
-		.then(function () {
+			.then(function () {
 			// always executed
 		});
 	},[]);
@@ -83,18 +83,14 @@ function DisplayMap(){
 	},[GHG]);
 
 
-	// //loading map data into variables
-	// useEffect(() => {
-	// 	if(mapData.config){
-	// 		setMap(mapData.data);
-	// 	}
-	// },[mapData]);
-
 	return(
 		<main>
+			<Header />
 			<img className="map" src={mapUrl} alt = "static map"/>
-			<div className = "data_circle"> 
+			<div className = "text"> 
+				<p>{usState}</p>
 				<p>{emissions}</p>
+				<p>{type}</p>
 			</div>
 		</main>
 	);

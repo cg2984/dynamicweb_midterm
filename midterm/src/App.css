@@ -32,7 +32,7 @@
 
 .header{
 	display:flex;
-	flex-direction:column;
+	flex-direction:row;
 	margin:0 auto;
 }
 
@@ -48,6 +48,7 @@
 	text-transform:uppercase;
 }
 
-.data_circle{
-	background-color:#81ff78;
+.text{
+	display:flex;
+	flex-direction:column;
 }

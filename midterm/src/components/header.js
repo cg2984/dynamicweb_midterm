@@ -4,12 +4,6 @@ function Header({usState}){
 
 	return(
 		<div className = "header">
-			<div className = "header_text">
-				<h1 className = "headerLink">{usState}</h1>
-				<h1>GHG EMISSIONS IN</h1>
-				<h1 className = "headerLink">2000</h1>
-			</div>
-			<div className = "buttonWrapper_type">
 				<div className = "button">
 					<a href = "/?type=NY">NEW YORK</a>
 				</div>
@@ -25,7 +19,6 @@ function Header({usState}){
 				<div className = "button">
 					<a href = "/?type=MA">Massachussets</a>
 				</div>
-			</div>
 		</div>
 	);
 }
