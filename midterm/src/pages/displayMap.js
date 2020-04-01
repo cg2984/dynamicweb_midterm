@@ -44,7 +44,7 @@ function DisplayMap(){
 			// handle success
 			console.log(response);
 			setGHG(response);
-			console.log("success",GHG.data);
+			console.log("success",GHG);
 		})
 		.catch(function (error) {
 			// handle error
@@ -74,13 +74,13 @@ function DisplayMap(){
 
 	
 	//loading ghg data into variables. without this only a proto object thing will load
-	// useEffect(() => {
-	// 	//must have the .data or else it will give you an error because it wont load properly and it will give undefined error
-	// 	if(GHGData.data){
-	// 		setEmissions(GHGData.data.result[0].data[2000]);
-	// 		console.log(emissions,GHGData);
-	// 	}
-	// },[GHGData]);
+	useEffect(() => {
+		//must have the .data or else it will give you an error because it wont load properly and it will give undefined error
+		if(GHG.data){
+			setEmissions(GHG.data.result[0].data[2000]);
+			console.log("emissions",emissions,GHG);
+		}
+	},[GHG]);
 
 
 	// //loading map data into variables
@@ -94,6 +94,7 @@ function DisplayMap(){
 		<main>
 			<img className="map" src={mapUrl} alt = "static map"/>
 			<div className = "data_circle"> 
+				<p>{emissions}</p>
 			</div>
 		</main>
 	);
