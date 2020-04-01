@@ -5,30 +5,43 @@ import { useHistory } from "react-router-dom";
 import Header from "../components/header.js"
 
 //---OTHER VARIABLES
+//southmost longistude: 18.55
+//northmost 71.23
 let lat = 40.730610;
 let lon = -73.935242;
 let zoom = 5;
 
+//---COLORS-----------------------
+//250-201 => #FF431B
+//200-151 => #FF7C1B
+//150-101 => #FFB51B
+//100-51 => #FFEE1B
+//50-0 => #D7FF1B
+
 
 //---GHG VARIABLES
 const key = "UcUGqUyJDvEldhwGumvpyxxmNaIRgGRHjJqa8Tde";
+let dataColor = 0;
+let dataArray = [];
 
-//MAP
+//const stateArray = ["AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY","DC"];
+const stateArray = ["NY","CT","NJ","PA"];
+
 let endpoint = `styles/v1/mapbox/light-v10/static/${lon},${lat},${zoom}/1080x512`;
 const token = "?access_token=pk.eyJ1IjoiY2cyOTg0IiwiYSI6ImNrODRpbnNlbjAwOWczZm8ybXM5azBuZnYifQ.0cD8Ldn1qLXkLW5331lmCg";
 const baseUrl = "https://api.mapbox.com/";
 let mapUrl = baseUrl+endpoint+token;
 	
-let mapData;
-
 function DisplayMap(){
 	let history = useHistory();
-	const[GHG,setGHG] = useState({});
+
 	const[mapData,setMapData] = useState({});
 	const[map,setMap] = useState("");
+	const[year,setYear] = useState("");
+	const[type, setType] = useState(null);
+	const[GHGData, setGHGData] = useState({});
+	const[mapTest,setMapTest] = useState("");
 	const[emissions,setEmissions] = useState(0);
-	const[usState,setUsState] = useState("NY");
-	const[type,setType] = useState("total");
 
 
 	useEffect(() => {
@@ -38,62 +51,85 @@ function DisplayMap(){
 		setType(type);
 	},[history]);
 
-	useEffect(() => {
-		axios.get(`https://developer.nrel.gov/api/cleap/v1/state_co2_emissions?state_abbr=${usState}&type=${type}&api_key=${key}`)
+	//getting the GHG data 
+	function getGHGData(){
+		axios.get(`https://developer.nrel.gov/api/cleap/v1/state_co2_emissions?state_abbr=NY&type=${type}&api_key=${key}`)
 			.then(function (response) {
-			// handle success
-			console.log(response);
-			setGHG(response);
-			console.log("success",GHG);
-		})
-			.catch(function (error) {
-			// handle error
-			console.log(error);
-		})
-			.then(function () {
-			// always executed
-		});
-	},[]);
+				// handle success
+					setGHGData(response);
+					console.log(GHGData);
+					console.log("request type",type);
+				})
+				.catch(function (error) {
+					// handle error
+					console.log(error);
+				})
+				.then(function () {
+					// always executed
+			});
+	}	
 
+	//type != null here because when i put it on the axios function it didnt work. this keeps it from loading the default value for type
 	useEffect(() => {
-		axios.get(mapUrl)
-			.then(function (response) {
-			// handle success
-			console.log(response);
-			setMapData(response);
-			console.log("mapData",mapData);
-		})
-		.catch(function (error) {
-			// handle error
-			console.log(error);
-		})
-		.then(function () {
-			// always executed
-		});
+		if (type!=null){
+			getGHGData();
+		}
 	},[]);
+	
 
 	
-	//loading ghg data into variables. without this only a proto object thing will load
+	
+	
+//loading ghg data into variables. without this only a proto object thing will load
 	useEffect(() => {
 		//must have the .data or else it will give you an error because it wont load properly and it will give undefined error
-		if(GHG.data){
-			setEmissions(GHG.data.result[0].data[2000]);
-			console.log("emissions",emissions,GHG);
+		if(GHGData.data){
+			setYear(GHGData.data.result[0].start);
+			setEmissions(GHGData.data.result[0].data[2000]);
+			console.log(emissions,GHGData);
+			dataArray.push(emissions);
 		}
-	},[GHG]);
+	},[GHGData]);
 
+//--MAPS--------------------------------------------------------------------------------------------------------
+	
+	function getMapData(){
+		//if(pins != null){
+			//normally its mapurl
+			axios.get(mapUrl)
+				.then(function (response) {
+				// handle success
+				console.log("map data success");
+				console.log(response);
+				setMapData(response);
+			})
+			.catch(function (error) {
+				// handle error
+				console.log(error);
+			})
+			.then(function () {
+				//always executed
+			});
+		//}	
+	}
+
+	//loading map data into variables
+	useEffect(() => {
+		if(mapData.config){
+			setMap(mapData.data);
+			console.log(mapData.config.url);
+		}
+	},[mapData]);
 
 	return(
 		<main>
-			<Header />
+			<Header type={type}/>
 			<img className="map" src={mapUrl} alt = "static map"/>
-			<div className = "text"> 
-				<p>{usState}</p>
+			<div className = "data_circle"> 
 				<p>{emissions}</p>
-				<p>{type}</p>
 			</div>
 		</main>
-	);
+	)
 }
 
 
